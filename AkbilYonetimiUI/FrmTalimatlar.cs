@@ -200,13 +200,12 @@ namespace AkbilYonetimiUI
             //GenelIslemler.GirisYapanKullaniciAdSoyad = string.Empty;
             //GenelIslemler.GirisYapanKullaniciID = 0;
 
+            Form giris = new Form1();
             foreach (Form item in Application.OpenForms)
             {
-                if (item.Name != "Form1")
-                {
                     item.Hide();
-                }
             }
+            giris.Show();
 
             Application.OpenForms["Form1"].Show();
         }

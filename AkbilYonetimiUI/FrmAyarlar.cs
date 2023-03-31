@@ -1,9 +1,10 @@
-﻿using Microsoft.Data.SqlClient;
-
+﻿using AkbilYonetimiIsKatmani;
+using AkbilYonetimiVeriKatmani.Models;
 namespace AkbilYonetimiUI
 {
     public partial class FrmAyarlar : Form
     {
+        AkbiluygulamadbContext context = new AkbiluygulamadbContext();
         public FrmAyarlar()
         {
             InitializeComponent();
@@ -23,11 +24,21 @@ namespace AkbilYonetimiUI
         {
             try
             {
-                //NOT: Giriş yapmis kullanicinin bilgileriyle select sorgusu yazacagiz.
-                //kullanici bilgisi alabilmek icin burada 2 yontem kullanabiliriz
-                //static bir class acip icinde GirisYapmisKullaniciEmail propertysi kullanilabilir.
-                //2. yöntem olarak Properties settings icine kayitli email bilgisinden yararlanilabilir.
-                
+                var kullanici = context.Kullanicilars.FirstOrDefault(x => x.Id == GenelIslemler.GirisYapanKullaniciID);
+
+                if (kullanici != null)
+                {
+                    txtAd.Text = kullanici.Ad;
+                    txtSoyad.Text = kullanici.Soyad;
+                    txtEmail.Text = kullanici.Email;
+                    txtEmail.Enabled = false;
+                    dtpDogumTarihi.Value = kullanici.DogumTarihi.Value;
+
+                }
+                else
+                {
+                    MessageBox.Show("Kullaıcı bilgileri getirilirken bir sorun oluştu !");
+                }
             }
             catch (Exception hata)
             {
@@ -40,7 +51,34 @@ namespace AkbilYonetimiUI
         {
             try
             {
-               
+                var kullanici = context.Kullanicilars.FirstOrDefault(x => x.Id == GenelIslemler.GirisYapanKullaniciID);
+
+                if (kullanici != null)
+                {
+                    kullanici.Ad = txtAd.Text.Trim();
+                    kullanici.Soyad = txtSoyad.Text.Trim();
+                    kullanici.DogumTarihi = dtpDogumTarihi.Value;
+
+                    if (!string.IsNullOrEmpty(txtSifre.Text.Trim()) && kullanici.Parola != GenelIslemler.MD5Encryption(txtSifre.Text.Trim()))
+                    {
+                        kullanici.Parola = GenelIslemler.MD5Encryption(txtSifre.Text.Trim());
+                        MessageBox.Show("Yeni şifre girdiniz!");
+                    }
+                    else
+                    {
+                        MessageBox.Show("Aynı şifreyi girdiniz !");
+                    }
+                    
+                    context.Kullanicilars.Update(kullanici);
+                    if (context.SaveChanges() > 0)
+                    {
+                        MessageBox.Show("Bilgileriniz güncellendi !");
+                        FrmAnasayfa frma = new FrmAnasayfa();
+                        this.Hide();
+                        frma.Show();
+                    }
+
+                }
             }
             catch (Exception hata)
             {

@@ -1,4 +1,6 @@
-﻿namespace AkbilYonetimiUI
+﻿using AkbilYonetimiIsKatmani;
+
+namespace AkbilYonetimiUI
 {
     public partial class FrmAnasayfa : Form
     {
@@ -31,6 +33,15 @@
             this.Hide();
             FrmTalimatlar frmt = new FrmTalimatlar();
             frmt.Show();
+        }
+
+        private void FrmAnasayfa_FormClosed(object sender, FormClosedEventArgs e)
+        {
+            GenelIslemler.GirisYapanKullaniciAdSoyad = string.Empty;
+            GenelIslemler.GirisYapanKullaniciID = 0;
+            this.Hide();
+            Form1 giris = new Form1();
+            giris.Show();
         }
     }
 }

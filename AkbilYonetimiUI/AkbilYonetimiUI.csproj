@@ -28,6 +28,16 @@
   </ItemGroup>
 
   <ItemGroup>
+    <Compile Update="Akbil.Designer.cs">
+      <DesignTimeSharedInput>True</DesignTimeSharedInput>
+      <AutoGen>True</AutoGen>
+      <DependentUpon>Akbil.settings</DependentUpon>
+    </Compile>
+    <Compile Update="Properties\Akbil.Designer.cs">
+      <DesignTimeSharedInput>True</DesignTimeSharedInput>
+      <AutoGen>True</AutoGen>
+      <DependentUpon>Akbil.settings</DependentUpon>
+    </Compile>
     <Compile Update="Properties\Resources.Designer.cs">
       <DesignTime>True</DesignTime>
       <AutoGen>True</AutoGen>
@@ -40,6 +50,17 @@
       <Generator>ResXFileCodeGenerator</Generator>
       <LastGenOutput>Resources.Designer.cs</LastGenOutput>
     </EmbeddedResource>
+  </ItemGroup>
+
+  <ItemGroup>
+    <None Update="Akbil.settings">
+      <Generator>SettingsSingleFileGenerator</Generator>
+      <LastGenOutput>Akbil.Designer.cs</LastGenOutput>
+    </None>
+    <None Update="Properties\Akbil.settings">
+      <Generator>SettingsSingleFileGenerator</Generator>
+      <LastGenOutput>Akbil.Designer.cs</LastGenOutput>
+    </None>
   </ItemGroup>
 
 </Project>
